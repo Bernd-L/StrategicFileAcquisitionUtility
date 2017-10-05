@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Strategic File Acquisition Utility:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Strategic_File_Acquisition_Utility_jar</output-path>
+    <root id="archive" name="Strategic File Acquisition Utility.jar">
+      <element id="module-output" name="Strategic File Acquisition Utility" />
+      <element id="library" level="project" name="commons-io-2.5-javadoc" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-io-2.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-io-2.5-javadoc.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

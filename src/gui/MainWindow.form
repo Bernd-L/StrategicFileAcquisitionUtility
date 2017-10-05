@@ -128,7 +128,10 @@
         <children>
           <component id="11e72" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
             <constraints/>
-            <properties/>
+            <properties>
+              <autoscrolls value="false"/>
+              <editable value="false"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

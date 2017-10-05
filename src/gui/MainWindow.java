@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainWindow {
+    logic.BL bl = new BL();
+    javax.swing.JFileChooser fcLoad = new javax.swing.JFileChooser();
+    javax.swing.JFileChooser fcSave = new javax.swing.JFileChooser();
     private JTextField tfURL;
     private JButton btTest;
     private JTextField tfSaveTo;
@@ -20,10 +23,6 @@ public class MainWindow {
     private JTextArea textArea1;
     private JLabel lbProgress;
 
-    logic.BL bl = new BL();
-    javax.swing.JFileChooser fcLoad = new javax.swing.JFileChooser();
-    javax.swing.JFileChooser fcSave = new javax.swing.JFileChooser();
-
     public MainWindow() {
         startButton.addActionListener(actionEvent -> {
             ArrayList<String> list = bl.parseURL(tfURL.getText());
@@ -33,16 +32,17 @@ public class MainWindow {
                 String html = bl.getHTML(list.get(i));
                 String partialLink = bl.getLink(html, tfSearchFor.getText(), cbBeforeAfter.getSelectedIndex() == 0);
                 String dlLink = bl.buildLink(partialLink);
-                textArea1.append(dlLink);
+                textArea1.append(dlLink + "\n");
                 try {
                     bl.downloadAndWrite(dlLink, tfSaveTo.getText());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                textArea1.append(" ... done\n");
-                pbProgress.setValue(pbProgress.getValue() + 1);
-                lbProgress.setText(bl.getPercent(pbProgress.getValue(), lenght) + "%");
+                //textArea1.append(" ... done\n");
+                pbProgress.setValue(i);
+                lbProgress.setText(bl.getPercent(i, lenght) + "%");
+                System.out.println(String.format("%4d %3d%s ", i, bl.getPercent(i, lenght), "%") + dlLink);
 
             }
         });
@@ -74,6 +74,7 @@ public class MainWindow {
         JFrame frame = new JFrame("MainWindow");
         frame.setContentPane(new MainWindow().pnControls);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Strategic File Acquisition Utility - github.com/Bernd-L");
         frame.pack();
         frame.setVisible(true);
     }

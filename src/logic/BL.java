@@ -46,6 +46,11 @@ public class BL {
     }
 
     public ArrayList<String> parseURL(String URL) {
+        if (!URL.contains("[")) {
+            ArrayList<String> temp = new ArrayList<>();
+            temp.add(URL);
+            return temp;
+        }
         int firstBracket = -1, secondBracket = -1, colon = -1;
         char[] temp = URL.toCharArray();
         for (int i = 0; i < temp.length; i++) {
@@ -78,6 +83,10 @@ public class BL {
     }
 
     public int getLenght(String URL) {
+        if (!URL.contains("[")) {
+            return 1;
+        }
+
         int firstBracket = -1, secondBracket = -1, colon = -1;
         char[] temp = URL.toCharArray();
         for (int i = 0; i < temp.length; i++) {
@@ -104,13 +113,15 @@ public class BL {
         return end - start;
     }
 
-    public int getPercent(int y, int x) {
-        return (y / x) * 100;
+    public int getPercent(float y, float x) {
+        float temp1 = y / x;
+        float temp2 = temp1 * 100;
+        return (int) temp2;
     }
 
     public String getLink(String HTML, String searchFor, boolean position) {
         if (!HTML.contains(searchFor)) {
-//            throw new Error();
+            throw new Error();
         }
         int foundAt = HTML.indexOf(searchFor);
 
