@@ -1,6 +1,9 @@
 package logic;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -9,6 +12,9 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class BL {
+    public static final boolean BEFORE = false;
+    public static final boolean AFTER = true;
+
     public String getHTML(String URL) {
 
         java.net.URL url;
@@ -30,7 +36,6 @@ public class BL {
             }
             br.close();
 
-            System.out.println("Done");
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -103,8 +108,42 @@ public class BL {
         return (y / x) * 100;
     }
 
-    public static final boolean BEFORE = false;
-    public static final boolean AFTER = true;
+    public String getLink(String HTML, String searchFor, boolean position) {
+        if (!HTML.contains(searchFor)) {
+//            throw new Error();
+        }
+        int foundAt = HTML.indexOf(searchFor);
 
-    public String getLink(String HTML, String searchFor, )
+        int firstQuotMk = -1;
+        int secondQuotMk = -1;
+        if (position) {
+            secondQuotMk = foundAt - 1;
+            for (int i = foundAt - 2; i >= 0; i--) {
+                if (HTML.charAt(i) == '"') {
+                    firstQuotMk = i;
+                    break;
+                }
+            }
+        } else {
+            firstQuotMk = foundAt + searchFor.length() + 1;
+            for (int i = foundAt + searchFor.length() + 1; i < HTML.length(); i++) {
+                if (HTML.charAt(i) == '"') {
+                    secondQuotMk = i;
+                    break;
+                }
+            }
+        }
+
+        return HTML.substring(firstQuotMk + 1, secondQuotMk);
+    }
+
+    public String buildLink(String partialImageURL) {
+        return "http://random.cat/" + partialImageURL;
+    }
+
+    public void downloadAndWrite(String URL, String absolutePath) throws IOException {
+        URL urlObject = new URL(URL);
+        File file = new File(absolutePath + "\\" + urlObject.getFile());
+        FileUtils.copyURLToFile(urlObject, file);
+    }
 }

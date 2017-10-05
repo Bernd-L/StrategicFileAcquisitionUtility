@@ -74,7 +74,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=" alt=&quot;&quot; title=&quot;&quot; id=&quot;cat&quot;"/>
+        </properties>
       </component>
       <component id="b8997" class="javax.swing.JComboBox" binding="cbBeforeAfter">
         <constraints>

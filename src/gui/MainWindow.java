@@ -3,8 +3,9 @@ package gui;
 import logic.BL;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.io.*;
 
 public class MainWindow {
     private JTextField tfURL;
@@ -29,8 +30,16 @@ public class MainWindow {
             int lenght = bl.getLenght(tfURL.getText());
             pbProgress.setMaximum(lenght);
             for (int i = 0; i < list.size(); i++) {
-                textArea1.append(list.get(i));
-                bl.getHTML(list.get(i));
+                String html = bl.getHTML(list.get(i));
+                String partialLink = bl.getLink(html, tfSearchFor.getText(), cbBeforeAfter.getSelectedIndex() == 0);
+                String dlLink = bl.buildLink(partialLink);
+                textArea1.append(dlLink);
+                try {
+                    bl.downloadAndWrite(dlLink, tfSaveTo.getText());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 textArea1.append(" ... done\n");
                 pbProgress.setValue(pbProgress.getValue() + 1);
                 lbProgress.setText(bl.getPercent(pbProgress.getValue(), lenght) + "%");
