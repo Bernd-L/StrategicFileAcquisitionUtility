@@ -51,34 +51,65 @@ public class BL {
             temp.add(URL);
             return temp;
         }
-        int firstBracket = -1, secondBracket = -1, colon = -1;
-        char[] temp = URL.toCharArray();
-        for (int i = 0; i < temp.length; i++) {
-            if (temp[i] == '[') {
-                firstBracket = i;
-                break;
-            }
-        }
-        for (int i = firstBracket + 1; i < temp.length; i++) {
-            if (temp[i] == ']') {
-                secondBracket = i;
-                break;
-            }
-        }
-        for (int i = firstBracket + 1; i < secondBracket; i++) {
-            if (temp[i] == ':') {
-                colon = i;
-                break;
-            }
-        }
 
-        int start = Integer.parseInt(URL.substring(firstBracket + 1, colon)),
-                end = Integer.parseInt(URL.substring(colon + 1, secondBracket));
         ArrayList<String> list = new ArrayList<>();
-        String newURL = URL.substring(0, firstBracket);
-        for (int i = start; i < end + 1; i++) {
-            list.add(newURL + i);
-        }
+
+        int firstBracket = 0;
+        int secondBracket = 0;
+        int colon = 0;
+        boolean moreToScan = false;
+        boolean hasLetters = false;
+        char[] urlArray = URL.toCharArray();
+
+        do {
+            firstBracket = secondBracket;
+            moreToScan = false;
+            hasLetters = false;
+
+            //Find the brackets
+            for (int i = firstBracket; i < urlArray.length; i++) {
+                if (urlArray[i] == '[') {
+                    firstBracket = i;
+                    break;
+                }
+            }
+            for (int i = firstBracket + 1; i < urlArray.length; i++) {
+                if (urlArray[i] == ']') {
+                    secondBracket = i;
+                    break;
+                }
+            }
+            for (int i = firstBracket + 1; i < secondBracket; i++) {
+                if (urlArray[i] == ':') {
+                    colon = i;
+                    break;
+                }
+            }
+
+            // Check if numeric or letter-based
+            try {
+                Integer.parseInt(URL.charAt(firstBracket + 1) + "");
+            } catch (NumberFormatException ex) {
+                hasLetters = true;
+            }
+
+            if (!hasLetters) {
+
+                int start = Integer.parseInt(URL.substring(firstBracket + 1, colon)),
+                        end = Integer.parseInt(URL.substring(colon + 1, secondBracket));
+                String newURL = URL.substring(0, firstBracket);
+                for (int i = start; i < end + 1; i++) {
+                    list.add(newURL + i);
+                }
+
+            } else {
+
+            }
+
+            //Check if there's more
+
+
+        } while (moreToScan);
         return list;
     }
 
