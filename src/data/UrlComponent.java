@@ -1,4 +1,5 @@
 package data;
 
-public class UrlComponent {
+public class UrlComponent extends URL {
+
 }
