@@ -3,6 +3,7 @@ package gui;
 import logic.BL;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,8 +48,10 @@ public class MainWindow {
             }
         });
         btSelect.addActionListener(actionEvent -> {
+            fcLoad.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fcLoad.setAcceptAllFileFilterUsed(false);
             if (fcLoad.showOpenDialog(pnControls) == JFileChooser.APPROVE_OPTION) {
-                File file = fcLoad.getSelectedFile();
+                File file = fcLoad.getCurrentDirectory();
                 tfSaveTo.setText(file.getAbsolutePath());
             }
         });
@@ -72,6 +75,7 @@ public class MainWindow {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         JFrame frame = new JFrame("MainWindow");
+        frame.setPreferredSize(new Dimension(500, 600));
         frame.setContentPane(new MainWindow().pnControls);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Strategic File Acquisition Utility - github.com/Bernd-L");
