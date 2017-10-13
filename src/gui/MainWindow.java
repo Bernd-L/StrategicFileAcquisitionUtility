@@ -1,9 +1,13 @@
 package gui;
 
+import data.URL;
+import exception.InvalidURLException;
 import logic.BL;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +27,8 @@ public class MainWindow {
     private JButton startButton;
     private JTextArea textArea1;
     private JLabel lbProgress;
+    private JTextField tfHostName;
+    private JButton helpAboutButton;
 
     public MainWindow() {
         startButton.addActionListener(actionEvent -> {
@@ -32,7 +38,7 @@ public class MainWindow {
             for (int i = 0; i < list.size(); i++) {
                 String html = bl.getHTML(list.get(i));
                 String partialLink = bl.getLink(html, tfSearchFor.getText(), cbBeforeAfter.getSelectedIndex() == 0);
-                String dlLink = bl.buildLink(partialLink);
+                String dlLink = bl.buildLink(tfHostName.getText(), partialLink);
                 textArea1.append(dlLink + "\n");
                 try {
                     bl.downloadAndWrite(dlLink, tfSaveTo.getText());
@@ -53,6 +59,16 @@ public class MainWindow {
             if (fcLoad.showOpenDialog(pnControls) == JFileChooser.APPROVE_OPTION) {
                 File file = fcLoad.getCurrentDirectory();
                 tfSaveTo.setText(file.getAbsolutePath());
+            }
+        });
+        btTest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    URL url = new URL(tfURL.getText());
+                } catch (InvalidURLException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

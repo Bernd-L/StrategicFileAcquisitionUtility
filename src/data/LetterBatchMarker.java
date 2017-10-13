@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 public class LetterBatchMarker extends UrlBatchmarker {
     protected final Character start, end;
 
@@ -7,4 +9,11 @@ public class LetterBatchMarker extends UrlBatchmarker {
         this.start = start;
         this.end = end;
     }
+
+    @Override
+    protected ArrayList<String> toStrings() {
+        return null;
+    }
+
+
 }

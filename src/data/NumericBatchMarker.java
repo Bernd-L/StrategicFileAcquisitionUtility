@@ -12,7 +12,10 @@ public class NumericBatchMarker extends UrlBatchmarker {
 
     @Override
     protected ArrayList<String> toStrings() {
-        ArrayList<String> result = new ArrayList<>();
-
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = start; i < end + 1; i++) {
+            list.add(i + "");
+        }
+        return list;
     }
 }

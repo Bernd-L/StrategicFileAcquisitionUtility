@@ -17,18 +17,16 @@ public class BL {
 
     public String getHTML(String URL) {
 
-        java.net.URL url;
         StringBuffer sb = new StringBuffer();
 
         try {
-            // get URL content
+            java.net.URL url = new URL(URL);
 
-            url = new URL(URL);
+            // get URL content
             URLConnection conn = url.openConnection();
 
             // open the stream and put it into BufferedReader
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String inputLine;
             while ((inputLine = br.readLine()) != null) {
@@ -179,8 +177,8 @@ public class BL {
         return HTML.substring(firstQuotMk + 1, secondQuotMk);
     }
 
-    public String buildLink(String partialImageURL) {
-        return "http://random.cat/" + partialImageURL;
+    public String buildLink(String hostName, String partialImageURL) {
+        return hostName + partialImageURL;
     }
 
     public void downloadAndWrite(String URL, String absolutePath) throws IOException {
