@@ -65,9 +65,9 @@ public class MainWindow {
             public void actionPerformed(ActionEvent actionEvent) {
                 String s = JOptionPane.showInputDialog("Start:");
                 String s1 = JOptionPane.showInputDialog("Stop:");
-                boolean b = JOptionPane.showConfirmDialog(null, "Dump output in real time to the console?", "Instant output?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION;
+                //boolean b = JOptionPane.showConfirmDialog(null, "Dump output in real time to the console?\nWARNING: Launching ", "Instant output?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION;
 
-                CharCount cc = new CharCount(s, s1, b);
+                CharCount cc = new CharCount(s, s1, true);
                 textArea1.setText(cc.toString());
 
                 /*try {
