@@ -1,8 +1,7 @@
 package gui;
 
-import data.URL;
-import exception.InvalidURLException;
 import logic.BL;
+import logic.CharCount;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,11 +63,18 @@ public class MainWindow {
         btTest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                try {
+                String s = JOptionPane.showInputDialog("Start:");
+                String s1 = JOptionPane.showInputDialog("Stop:");
+                boolean b = JOptionPane.showConfirmDialog(null, "Dump output in real time to the console?", "Instant output?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION;
+
+                CharCount cc = new CharCount(s, s1, b);
+                textArea1.setText(cc.toString());
+
+                /*try {
                     URL url = new URL(tfURL.getText());
                 } catch (InvalidURLException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
         });
     }

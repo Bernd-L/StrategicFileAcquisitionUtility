@@ -144,4 +144,20 @@ public class CharCount {
     private ArrayList<String> getResult() {
         return result;
     }
+
+    /**
+     * Converts the result-ArrayList to a multiline String.
+     * A string gets on each line.
+     *
+     * @return The string representation of the output.
+     */
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        for (String s : result) {
+            sb.append(s);
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
 }
